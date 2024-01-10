@@ -1,8 +1,6 @@
 'use client';
 import * as z from 'zod';
 import axios from 'axios';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 
 import {
   Form,
@@ -11,45 +9,50 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+
 import { Button } from '@/components/ui/button';
 import { Pencil } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { Textarea } from '@/components/ui/textarea';
+import { Course } from '@prisma/client';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Combobox } from '@/components/ui/combobox';
 
 interface Props {
-  initialData: { title: string };
+  initialData: Course;
   courseId: string;
+  options: { label: string; value: string }[];
 }
 
 const schemaForm = z.object({
-  title: z.string().min(1, {
-    message: 'Title is required',
-  }),
+  categoryId: z.string().min(1, {}),
 });
 
-function TitleForm({ initialData, courseId }: Props) {
+function CategoryBoxForm({ initialData, courseId, options }: Props) {
   const router = useRouter();
 
   const [isEditing, setIsEditing] = useState(false);
-
-  const form = useForm<z.infer<typeof schemaForm>>({
-    resolver: zodResolver(schemaForm),
-    defaultValues: initialData,
-  });
-
-  const { isSubmitting, isValid } = form.formState;
 
   function toggleEditing() {
     setIsEditing(!isEditing);
   }
 
+  const form = useForm<z.infer<typeof schemaForm>>({
+    resolver: zodResolver(schemaForm),
+    defaultValues: {
+      categoryId: initialData?.categoryId || '',
+    },
+  });
+  const { isSubmitting, isValid } = form.formState;
+
   async function onSubmit(value: z.infer<typeof schemaForm>) {
     try {
       await axios.patch(`/api/courses/${courseId}`, value);
       toast({
-        title: 'Updated successfully',
+        description: 'Updated successfully',
       });
       toggleEditing();
 
@@ -58,21 +61,25 @@ function TitleForm({ initialData, courseId }: Props) {
     } catch (error) {
       console.error(error);
       toast({
-        title: 'Something went wrong',
+        description: 'Something went wrong',
         variant: 'destructive',
       });
     }
   }
 
+  const selectedOption = options.find(
+    (option) => option.value === initialData.categoryId,
+  );
+
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course title
+        Course category
         <Button onClick={toggleEditing} variant={'ghost'}>
           {!isEditing ? (
-            <div className="flex justify-between items-center text-muted-foreground">
+            <div className="flex justify-between items-center text--muted-foreground">
               <Pencil className="h-4 w-4 mr-2" />
-              <span>Edit title</span>
+              <span>Edit category</span>
             </div>
           ) : (
             <>Cancel</>
@@ -82,8 +89,10 @@ function TitleForm({ initialData, courseId }: Props) {
       <div>
         {!isEditing && (
           <p className="text-sm font-semibold text-muted-foreground mt-2">
-            Course title:
-            <span className="text-foreground"> {initialData.title}</span>
+            Course category:
+            <span className="text-foreground italic">
+              &nbsp;{selectedOption?.label || 'No category yet'}
+            </span>
           </p>
         )}
         {isEditing && (
@@ -93,17 +102,12 @@ function TitleForm({ initialData, courseId }: Props) {
               className="space-y-4 mt-4"
             >
               <FormField
-                name="title"
+                name="categoryId"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        className="bg-white p-4"
-                        disabled={isSubmitting}
-                        placeholder='e.g. "Advance web development" '
-                        {...field}
-                      />
+                      <Combobox options={options} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -122,4 +126,4 @@ function TitleForm({ initialData, courseId }: Props) {
   );
 }
 
-export default TitleForm;
+export default CategoryBoxForm;

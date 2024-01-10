@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-// DEV: hot-module replacment fix
+// DEV: HMR fix
 declare global {
   var prisma: PrismaClient | undefined;
 }

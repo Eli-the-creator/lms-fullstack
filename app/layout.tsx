@@ -1,11 +1,17 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import NextTopLoader from 'nextjs-toploader';
+
+// Hydretion helper
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
 
 // CLERK
 import { ClerkProvider } from '@clerk/nextjs';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import { extractRouterConfig } from 'uploadthing/server';
+import { ourFileRouter } from './api/uploadthing/core';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,6 +32,8 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={cn(inter.className, 'subpixel-antialiased')}>
+          <NextTopLoader />
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           {children}
           <Toaster />
         </body>

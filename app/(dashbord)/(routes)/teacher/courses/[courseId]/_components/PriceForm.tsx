@@ -17,26 +17,26 @@ import { Pencil } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { Course } from '@prisma/client';
+import { formatPrice } from '@/lib/format';
 
 interface Props {
-  initialData: { title: string };
+  initialData: Course;
   courseId: string;
 }
 
 const schemaForm = z.object({
-  title: z.string().min(1, {
-    message: 'Title is required',
-  }),
+  price: z.coerce.number(),
 });
 
-function TitleForm({ initialData, courseId }: Props) {
+function PriceForm({ initialData, courseId }: Props) {
   const router = useRouter();
 
   const [isEditing, setIsEditing] = useState(false);
 
   const form = useForm<z.infer<typeof schemaForm>>({
     resolver: zodResolver(schemaForm),
-    defaultValues: initialData,
+    defaultValues: { price: initialData?.price || undefined },
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -49,7 +49,7 @@ function TitleForm({ initialData, courseId }: Props) {
     try {
       await axios.patch(`/api/courses/${courseId}`, value);
       toast({
-        title: 'Updated successfully',
+        description: 'Updated successfully',
       });
       toggleEditing();
 
@@ -58,7 +58,7 @@ function TitleForm({ initialData, courseId }: Props) {
     } catch (error) {
       console.error(error);
       toast({
-        title: 'Something went wrong',
+        description: 'Something went wrong',
         variant: 'destructive',
       });
     }
@@ -67,12 +67,12 @@ function TitleForm({ initialData, courseId }: Props) {
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course title
+        Course price
         <Button onClick={toggleEditing} variant={'ghost'}>
           {!isEditing ? (
-            <div className="flex justify-between items-center text-muted-foreground">
+            <div className="flex justify-between items-center text--muted-foreground">
               <Pencil className="h-4 w-4 mr-2" />
-              <span>Edit title</span>
+              <span>Edit price</span>
             </div>
           ) : (
             <>Cancel</>
@@ -82,8 +82,11 @@ function TitleForm({ initialData, courseId }: Props) {
       <div>
         {!isEditing && (
           <p className="text-sm font-semibold text-muted-foreground mt-2">
-            Course title:
-            <span className="text-foreground"> {initialData.title}</span>
+            Course price:
+            <span className="text-foreground">
+              &nbsp;
+              {initialData.price ? formatPrice(initialData.price) : 'Free'}
+            </span>
           </p>
         )}
         {isEditing && (
@@ -93,15 +96,16 @@ function TitleForm({ initialData, courseId }: Props) {
               className="space-y-4 mt-4"
             >
               <FormField
-                name="title"
+                name="price"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
-                        className="bg-white p-4"
+                        type="number"
+                        step={0.01}
+                        placeholder="How many value do you bring ?"
                         disabled={isSubmitting}
-                        placeholder='e.g. "Advance web development" '
                         {...field}
                       />
                     </FormControl>
@@ -122,4 +126,4 @@ function TitleForm({ initialData, courseId }: Props) {
   );
 }
 
-export default TitleForm;
+export default PriceForm;

@@ -4,7 +4,6 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-
 import axios from 'axios';
 
 import {
@@ -57,7 +56,7 @@ function CreatePage() {
       //
     } catch (error) {
       toast({
-        title: "Somethink wen't wrong :(",
+        title: "Something wen't wrong :(",
         description: 'Try again later, or reload the page',
         variant: 'destructive',
         action: (
@@ -79,7 +78,7 @@ function CreatePage() {
         <h1 className="text-2xl">Name your course</h1>
         <p className="text-muted-foreground">
           What would you like to name your course? Don't worry, you can change
-          this name leter.
+          this name later.
         </p>
         <Form {...form}>
           <form

@@ -21,6 +21,7 @@ import { useRouter } from 'next/navigation';
 interface Props {
   initialData: { title: string };
   courseId: string;
+  chapterId: string;
 }
 
 const schemaForm = z.object({
@@ -29,7 +30,7 @@ const schemaForm = z.object({
   }),
 });
 
-function TitleForm({ initialData, courseId }: Props) {
+function ChapterForm({ initialData, courseId, chapterId }: Props) {
   const router = useRouter();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -47,7 +48,10 @@ function TitleForm({ initialData, courseId }: Props) {
 
   async function onSubmit(value: z.infer<typeof schemaForm>) {
     try {
-      await axios.patch(`/api/courses/${courseId}`, value);
+      await axios.patch(
+        `/api/courses/${courseId}/chapters/${chapterId}`,
+        value,
+      );
       toast({
         title: 'Updated successfully',
       });
@@ -67,10 +71,15 @@ function TitleForm({ initialData, courseId }: Props) {
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course title
+        <p>
+          Chapter title
+          <span className="text-muted-foreground">
+            : {initialData.title || ''}
+          </span>
+        </p>
         <Button onClick={toggleEditing} variant={'ghost'}>
           {!isEditing ? (
-            <div className="flex justify-between items-center text-muted-foreground">
+            <div className="flex justify-between items-center">
               <Pencil className="h-4 w-4 mr-2" />
               <span>Edit title</span>
             </div>
@@ -80,12 +89,6 @@ function TitleForm({ initialData, courseId }: Props) {
         </Button>
       </div>
       <div>
-        {!isEditing && (
-          <p className="text-sm font-semibold text-muted-foreground mt-2">
-            Course title:
-            <span className="text-foreground"> {initialData.title}</span>
-          </p>
-        )}
         {isEditing && (
           <Form {...form}>
             <form
@@ -101,7 +104,7 @@ function TitleForm({ initialData, courseId }: Props) {
                       <Input
                         className="bg-white p-4"
                         disabled={isSubmitting}
-                        placeholder='e.g. "Advance web development" '
+                        placeholder='e.g. "Introduction to the course" '
                         {...field}
                       />
                     </FormControl>
@@ -122,4 +125,4 @@ function TitleForm({ initialData, courseId }: Props) {
   );
 }
 
-export default TitleForm;
+export default ChapterForm;
