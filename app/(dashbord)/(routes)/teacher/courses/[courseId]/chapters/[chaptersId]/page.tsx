@@ -9,7 +9,7 @@ import { ChapterDescriptionForm } from './_components/DescriptionForm';
 import { ChapterAccessForm } from './_components/ChapterAccessForm';
 import ChapterVideo from './_components/ChapterVideoForm';
 import Banner from '@/components/Banner';
-import ChapterActions from './_components/ChapterActions';
+import { ChapterActions } from './_components/ChapterActions';
 
 export default async function ChapterPage({
   params,
@@ -54,12 +54,15 @@ export default async function ChapterPage({
 
   return (
     <>
-      {!chapter.isPublished && (
-        <Banner
-          label="This chapter is unpublished.It will not be visible in the course"
-          variant={'warning'}
-        />
-      )}
+      <Banner
+        label={
+          chapter.isPublished
+            ? 'This chapter is unpublished'
+            : 'This chapter is unpublished.It will not be visible in the course'
+        }
+        variant={chapter.isPublished ? 'success' : 'warning'}
+      />
+
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="w-full">
@@ -83,8 +86,8 @@ export default async function ChapterPage({
               <ChapterActions
                 disabled={!isComplete}
                 courseId={params.courseId}
-                chaptersId={params.chaptersId}
-                isPublish={isComplete}
+                chapterId={params.chaptersId}
+                isPublished={chapter.isPublished}
               />
             </div>
           </div>

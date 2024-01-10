@@ -9,19 +9,17 @@ import { Button } from '@/components/ui/button';
 import ConfirmModal from '@/components/modals/ConfirmModal';
 import { toast } from '@/components/ui/use-toast';
 
-interface ChapterActionsProps {
+interface CourseActionProps {
   disabled: boolean;
   courseId: string;
-  chapterId: string;
   isPublished: boolean;
 }
 
-export const ChapterActions = ({
+export const CourseAction = ({
   disabled,
   courseId,
-  chapterId,
   isPublished,
-}: ChapterActionsProps) => {
+}: CourseActionProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,15 +28,11 @@ export const ChapterActions = ({
       setIsLoading(true);
 
       if (isPublished) {
-        await axios.patch(
-          `/api/courses/${courseId}/chapters/${chapterId}/unpublish`,
-        );
-        toast({ title: 'Chapter unpublished' });
+        await axios.patch(`/api/courses/${courseId}/unpublish`);
+        toast({ title: 'Course unpublished' });
       } else {
-        await axios.patch(
-          `/api/courses/${courseId}/chapters/${chapterId}/publish`,
-        );
-        toast({ title: 'Chapter published' });
+        await axios.patch(`/api/courses/${courseId}/publish`);
+        toast({ title: 'Course published' });
       }
 
       router.refresh();
@@ -53,17 +47,15 @@ export const ChapterActions = ({
     try {
       setIsLoading(true);
 
-      await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
+      await axios.delete(`/api/courses/${courseId}`);
 
-      toast({ title: 'Chapter deleted' });
-      router.push(`/teacher/courses/${courseId}`);
+      toast({ title: 'Course deleted' });
+      router.push(`/teacher/courses`);
       router.refresh();
-    } catch (error) {
-      console.log(error);
+    } catch {
       toast({
         title: 'Something go wrong :(',
         description: 'Try reload the page or again later',
-        variant: 'destructive',
       });
     } finally {
       setIsLoading(false);
@@ -81,7 +73,7 @@ export const ChapterActions = ({
         {isPublished ? 'Unpublish' : 'Publish'}
       </Button>
       <ConfirmModal onConfirm={onDelete}>
-        <Button size="icon" variant={'destructive'} disabled={isLoading}>
+        <Button size={'icon'} variant={'destructive'} disabled={isLoading}>
           <Trash className="h-4 w-4" />
         </Button>
       </ConfirmModal>

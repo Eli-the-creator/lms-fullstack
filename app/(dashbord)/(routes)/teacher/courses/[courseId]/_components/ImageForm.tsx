@@ -77,7 +77,7 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
         </Button>
       </div>
 
-      {isEditing &&
+      {!isEditing &&
         (!initialData.imageUrl ? (
           <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
             <ImageIcon className="w-10 h-10 text-slate-400" />
@@ -97,7 +97,7 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
           </div>
         ))}
 
-      {!isEditing && (
+      {isEditing && (
         <div>
           <FileUpload
             endpoint="courseImage"

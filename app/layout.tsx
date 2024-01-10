@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { extractRouterConfig } from 'uploadthing/server';
 import { ourFileRouter } from './api/uploadthing/core';
+import { ConfettiProvider } from '@/components/providers/ConfettiProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
         <body className={cn(inter.className, 'subpixel-antialiased')}>
           <NextTopLoader />
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+          <ConfettiProvider />
           {children}
           <Toaster />
         </body>

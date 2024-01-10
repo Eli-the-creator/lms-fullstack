@@ -54,6 +54,7 @@ export const ChapterDescriptionForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      console.log(values);
       await axios.patch(
         `/api/courses/${courseId}/chapters/${chapterId}`,
         values,
@@ -72,6 +73,8 @@ export const ChapterDescriptionForm = ({
     }
   };
 
+  console.log(initialData.description);
+
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
@@ -88,18 +91,17 @@ export const ChapterDescriptionForm = ({
         </Button>
       </div>
       {!isEditing && (
-        <div
-          className={cn(
-            'text-sm mt-2',
-            !initialData.description && 'text-slate-500 italic',
-          )}
-        >
-          {!initialData.description && 'No description'}
-          {initialData.description && (
-            <Preview description={initialData.description} />
-          )}
-        </div>
+        <p className="text-sm font-semibold text-muted-foreground mt-2">
+          Course description:
+          <span className="text-muted-foreground">
+            {!initialData.description && 'No description yet'}
+            {initialData.description && (
+              <Preview description={initialData.description} />
+            )}
+          </span>
+        </p>
       )}
+
       {isEditing && (
         <Form {...form}>
           <form
