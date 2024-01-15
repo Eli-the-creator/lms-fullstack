@@ -42,10 +42,7 @@ function CreatePage() {
 
   async function onSubmit(values: z.infer<typeof formShema>) {
     try {
-      console.log(values);
-      // @ts-ignore
       const response = await axios.post('/api/courses', values);
-      console.log(response);
       router.push(`/teacher/courses/${response.data.id}`);
 
       toast({

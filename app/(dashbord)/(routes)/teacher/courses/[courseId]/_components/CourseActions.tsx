@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import ConfirmModal from '@/components/modals/ConfirmModal';
 import { toast } from '@/components/ui/use-toast';
+import { useConfettiStore } from '@/hooks/useConfettiStore';
 
 interface CourseActionProps {
   disabled: boolean;
@@ -21,6 +22,7 @@ export const CourseAction = ({
   isPublished,
 }: CourseActionProps) => {
   const router = useRouter();
+  const confetti = useConfettiStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async () => {
@@ -33,6 +35,7 @@ export const CourseAction = ({
       } else {
         await axios.patch(`/api/courses/${courseId}/publish`);
         toast({ title: 'Course published' });
+        confetti.onOpen();
       }
 
       router.refresh();

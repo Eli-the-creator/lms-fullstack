@@ -54,7 +54,6 @@ export const ChapterDescriptionForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values);
       await axios.patch(
         `/api/courses/${courseId}/chapters/${chapterId}`,
         values,
@@ -72,8 +71,6 @@ export const ChapterDescriptionForm = ({
       });
     }
   };
-
-  console.log(initialData.description);
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">

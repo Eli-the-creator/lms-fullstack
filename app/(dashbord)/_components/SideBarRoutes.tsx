@@ -1,6 +1,6 @@
 'use client';
 
-import { Layout, Compass, List, BarChart } from 'lucide-react';
+import { Layout, Compass, List, BarChart, PlusCircle } from 'lucide-react';
 import SidebarItem from './SidebarItem';
 import { usePathname } from 'next/navigation';
 
@@ -27,6 +27,11 @@ const teacherRoute = [
     icon: BarChart,
     label: 'Analitics',
     href: '/teacher/analitics',
+  },
+  {
+    icon: PlusCircle,
+    label: 'Create course',
+    href: '/teacher/create',
   },
 ];
 

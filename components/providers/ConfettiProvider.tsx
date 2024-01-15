@@ -13,7 +13,7 @@ export function ConfettiProvider() {
   return (
     <ReactConfetti
       className="pointer-events-none z-[100]"
-      numberOfPieces={5000}
+      numberOfPieces={500}
       recycle={false}
       onConfettiComplete={() => {
         confetti.onClose();
