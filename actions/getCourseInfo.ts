@@ -39,10 +39,36 @@ export default async function getCourseInfo(userId: string, courseId: string) {
       },
     });
 
+    const publishChapter = await db.chapter.findMany({
+      where: {
+        isPublished: true,
+        courseId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    const publishedChapterId = publishChapter.map((el) => el.id);
+
+    const validCompletedChapters = await db.userProgress.count({
+      where: {
+        userId,
+        chapterId: {
+          in: publishedChapterId,
+        },
+        isCompleted: true,
+      },
+    });
+
+    const progressPercentage =
+      (validCompletedChapters / publishChapter.length) * 100;
+
     return {
       accessUserId,
       course,
       category,
+      progressPercentage,
     };
   } catch (error) {
     console.error(error);

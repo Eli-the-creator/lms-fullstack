@@ -13,15 +13,19 @@ import { Category as PrismaCategory, Course } from '@prisma/client';
 import Category from '@/app/(dashbord)/(routes)/search/_components/Category';
 import Image from 'next/image';
 import { Suspense } from 'react';
+import { Progress } from '@/components/ui/progress';
+import CourseProgress from '@/components/CourseProgress';
 
 interface CourseContentPrevProps {
   course: Course;
   category: PrismaCategory[];
+  progress: number;
 }
 
 export default function CourseContentPrev({
   course,
   category,
+  progress,
 }: CourseContentPrevProps) {
   const { id, title, description, imageUrl, categoryId } = course;
 
@@ -39,15 +43,11 @@ export default function CourseContentPrev({
 
       <Card>
         <CardHeader>
-          <CardDescription>
-            <div className="flex items-center gap-x-2 mb-1">
-              <IconBadge icon={BookOpen} variant={'default'} />
-              <p> 1234 Chapters</p>
-            </div>
-          </CardDescription>
-
           <CardTitle className='className="font-semibold text-xl md:text-2xl capitalize'>
-            {title}
+            <div className="flex justify-between items-center">
+              {title}
+              <Category items={category} />
+            </div>
           </CardTitle>
         </CardHeader>
 
@@ -57,7 +57,9 @@ export default function CourseContentPrev({
           </CardDescription>
         </CardContent>
         <CardFooter>
-          <Category items={category} />
+          <div className="w-full">
+            <CourseProgress value={progress} />
+          </div>
         </CardFooter>
       </Card>
     </>

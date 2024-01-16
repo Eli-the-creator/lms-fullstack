@@ -20,17 +20,19 @@ export default async function CoursePage({ params }: CoursePageProps) {
   if (!userId) {
     return redirect('/');
   }
-
-  const { accessUserId, course, category } = await getCourseInfo(
-    userId,
-    params.courseId,
-  );
+  // @ts-ignore
+  const { accessUserId, course, category, progressPercentage } =
+    await getCourseInfo(userId, params.courseId);
 
   return (
     <div className="p-6 max-w-screen-2xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         <div className="order-1 col-span-1 lg:col-span-3 flex flex-col space-y-6">
-          <CourseContentPrev course={course} category={category} />
+          <CourseContentPrev
+            course={course}
+            category={category}
+            progress={progressPercentage}
+          />
         </div>
 
         {/*  */}
