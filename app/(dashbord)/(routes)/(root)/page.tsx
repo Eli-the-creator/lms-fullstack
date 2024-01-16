@@ -11,8 +11,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default async function Dashboard() {
   const { userId } = auth();
 
-  throw new Error();
-
   if (!userId) {
     redirect('/');
   }
