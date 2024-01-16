@@ -5,9 +5,13 @@ import { redirect } from 'next/navigation';
 import CourseList from '../search/_components/CourseList';
 import { CheckCircle, Clock } from 'lucide-react';
 import InfoCart from './_componnents/InfoCart';
+import { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default async function Dashboard() {
   const { userId } = auth();
+
+  throw new Error();
 
   if (!userId) {
     redirect('/');
@@ -24,6 +28,7 @@ export default async function Dashboard() {
           label="In progress"
           numberOfItem={coursesInProgress.length}
         />
+
         <InfoCart
           variant="success"
           icon={CheckCircle}

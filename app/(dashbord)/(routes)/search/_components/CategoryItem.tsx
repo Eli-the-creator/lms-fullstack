@@ -44,7 +44,7 @@ export default function CategoryItem({
     <button
       onClick={onClick}
       className={cn(
-        'flex items-center py-2 px-3 gap-x-2 text-sm border rounded-full  shadow-sm border-slate-200 hover:shadow-md transition',
+        'flex items-center mb-2 py-2 px-4 gap-x-2 text-sm border rounded-full  shadow-sm border-slate-200 hover:shadow-md transition',
         isSelected && 'border-slate-200 bg-slate-300 shadow-md ring-2',
       )}
     >

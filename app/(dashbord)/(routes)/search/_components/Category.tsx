@@ -11,6 +11,8 @@ import { FaReact } from 'react-icons/fa';
 import { IoLogoJavascript } from 'react-icons/io5';
 
 import CategoryItem from './CategoryItem';
+import { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface categoryProps {
   items: CategoryPrismaClient[];

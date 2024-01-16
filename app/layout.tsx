@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={cn(inter.className, 'subpixel-antialiased')}>
+        <body className={cn(inter.className, 'antialiased')}>
           <NextTopLoader />
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <ConfettiProvider />

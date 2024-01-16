@@ -3,17 +3,20 @@
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import { formatPrice } from '@/lib/format';
+import { cn } from '@/lib/utils';
 import axios from 'axios';
 import { useState } from 'react';
 
 interface CourseEnrolButtonProps {
   courseId: string;
   price: number;
+  className?: string;
 }
 
 export default function CourseEnrollButton({
   courseId,
   price,
+  className,
 }: CourseEnrolButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -43,7 +46,7 @@ export default function CourseEnrollButton({
     <Button
       disabled={isLoading}
       onClick={onClick}
-      className="w-full md:w-auto"
+      className={cn('w-full', !!className && className)}
       size={'lg'}
     >
       Enroll for {formatPrice(price)}

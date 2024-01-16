@@ -1,5 +1,10 @@
 import { Category, Course } from '@prisma/client';
 import CourseCart from './CourseCart';
+import { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { getCourses } from '@/actions/getCourses';
+import { auth } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
 type CoursesWithProgressWithCategory = Course & {
   category: Category | null;
@@ -11,7 +16,7 @@ interface CourseListProps {
   items: CoursesWithProgressWithCategory[];
 }
 
-export default function CourseList({ items }: CourseListProps) {
+export default async function CourseList({ items }: CourseListProps) {
   return (
     <div>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">

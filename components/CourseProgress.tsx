@@ -5,6 +5,7 @@ interface CourseProgressProps {
   value?: number;
   variant?: 'success' | 'default';
   size?: 'sm' | 'default';
+  className?: string;
 }
 
 const colorVariant = {
@@ -21,15 +22,17 @@ export default function CourseProgress({
   value,
   variant,
   size,
+  className,
 }: CourseProgressProps) {
   return (
-    <div>
+    <div className="w-full">
       <Progress className="h-2" value={value} variant={variant} />
       <p
         className={cn(
           'font-medium mt-2 text-sky-700',
           colorVariant[variant || 'default'],
           sizeByVariant[size || 'default'],
+          className,
         )}
       >
         {Math.round(value!)}% Complete
