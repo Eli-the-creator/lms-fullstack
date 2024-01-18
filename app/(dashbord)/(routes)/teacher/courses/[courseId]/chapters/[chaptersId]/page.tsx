@@ -10,6 +10,7 @@ import { ChapterAccessForm } from './_components/ChapterAccessForm';
 import ChapterVideo from './_components/ChapterVideoForm';
 import Banner from '@/components/Banner';
 import { ChapterActions } from './_components/ChapterActions';
+import { IsNewSection } from './_components/IsNewSection';
 
 export default async function ChapterPage({
   params,
@@ -122,6 +123,11 @@ export default async function ChapterPage({
                 <h2 className="text-xl">Access setting</h2>
               </div>
               <ChapterAccessForm
+                initialData={chapter}
+                courseId={params.courseId}
+                chapterId={params.chaptersId}
+              />
+              <IsNewSection
                 initialData={chapter}
                 courseId={params.courseId}
                 chapterId={params.chaptersId}

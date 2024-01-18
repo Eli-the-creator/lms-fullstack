@@ -36,6 +36,8 @@ export default async function CourseSideBar({
     },
   });
 
+  console.log(course);
+
   return (
     <div className="h-full w-72 border-r flex flex-col items-center overflow-y-scroll shadow-md bg-slate-100/40">
       {/* <h1 className="text-lg font-light">{course.title}</h1> */}
@@ -64,6 +66,8 @@ export default async function CourseSideBar({
             isCompleted={!!el.userProgress?.[0]?.isCompleted}
             courseId={course.id}
             isLocked={!el.isFree && !purchase}
+            isNewSection={el.isNewSection}
+            sectionName={el.sectionName}
           />
         ))}
       </div>

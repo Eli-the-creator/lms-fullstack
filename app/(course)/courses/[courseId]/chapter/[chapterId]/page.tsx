@@ -71,21 +71,23 @@ export default async function ChapterPage({
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between mb-4 m-6">
           <h2 className="text-2xl font-semibold">{chapter.title}</h2>
-          {purchase ? (
-            <CourseProgressButton
-              courseId={params.courseId}
-              chapterId={params.chapterId}
-              nextChapter={nextChapter?.id!}
-              isCompleted={!!userProgress?.isCompleted}
-            />
-          ) : (
-            <CourseEnrollButton
-              courseId={params.courseId}
-              price={course.price!}
-            />
-          )}
+          <div>
+            {purchase ? (
+              <CourseProgressButton
+                courseId={params.courseId}
+                chapterId={params.chapterId}
+                nextChapter={nextChapter?.id!}
+                isCompleted={!!userProgress?.isCompleted}
+              />
+            ) : (
+              <CourseEnrollButton
+                courseId={params.courseId}
+                price={course.price!}
+              />
+            )}
+          </div>
         </div>
-        <div className="border-2 p-4 rounded-xl mx-6">
+        <div className="border-2 p-4 rounded-xl mx-4">
           {!isLocked && <Preview description={chapter.description!} />}
         </div>
         <div className="">

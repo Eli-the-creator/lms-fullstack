@@ -63,6 +63,9 @@ model Chapter {
   position      Int 
   isPublished   Boolean     @default(false)
   isFree        Boolean     @default(false)
+
+  isNewSection  Boolean    @default(false)
+  sectionName   String?     @db.Text
   
   muxData       MuxData? 
 
