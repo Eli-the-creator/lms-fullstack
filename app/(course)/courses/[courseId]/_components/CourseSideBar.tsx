@@ -36,10 +36,8 @@ export default async function CourseSideBar({
     },
   });
 
-  console.log(course);
-
   return (
-    <div className="h-full w-72 border-r flex flex-col items-center overflow-y-scroll shadow-md bg-slate-100/40">
+    <div className="h-full w-full border-r flex flex-col items-center overflow-y-scroll shadow-md bg-slate-100/40">
       {/* <h1 className="text-lg font-light">{course.title}</h1> */}
       {purchase && (
         <div className="mt-10 pb-10 w-full border-b">

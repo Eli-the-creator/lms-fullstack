@@ -31,7 +31,7 @@ export default function ChartSalesLine({ data, label }: ChartProps) {
 
   return (
     <Card className="flex flex-col items-center justify-center">
-      <CardHeader className="w-full pt-0 tracking-tight">
+      <CardHeader className="w-full pt-2 tracking-tight">
         <CardTitle className="text-2xl font-medium">{label}</CardTitle>
         <DatePicker days={date} onSelect={setDate} />
       </CardHeader>

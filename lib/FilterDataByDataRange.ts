@@ -19,7 +19,7 @@ export const filterDataByDateRange = (
 
   const { from, to } = dateRange;
 
-  // ter data in to a new Set for fast searching
+  // tern data in to a new Set for fast searching
   const dataSet = new Set(data.map((item) => item.date));
 
   // filter data in (dataRange)

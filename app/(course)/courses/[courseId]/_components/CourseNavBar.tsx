@@ -14,8 +14,10 @@ interface CourseSideBarProps {
 
 export default function CourseNavBar({ course, progress }: CourseSideBarProps) {
   return (
-    <div className="p-5 border-b h-full flex items-center bg-slate-100 shadow-sm ">
-      <Logo />
+    <div className="p-5 border-b h-full flex items-center justify-between bg-slate-100 shadow-sm ">
+      <span className="lg:block md:block sm:hidden hidden">
+        <Logo />
+      </span>
       <CourseMobileSideBar course={course} progress={progress} />
       <NavbarRoutes />
     </div>
