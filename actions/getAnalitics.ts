@@ -22,6 +22,7 @@ interface AnalyticsData {
   totalRevenue: number;
   totalSale: number;
   dataBestSeller: BestSellerData[];
+  purchasedCourses: { course: Course }[];
 }
 
 function groupeByCourse(purchase: PurchaseWithCourse[]) {

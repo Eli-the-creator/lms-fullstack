@@ -30,7 +30,7 @@ export default function ErrorPage() {
         </CardHeader>
         <CardContent>
           <p className="text-xl font-bold">
-            Don't worry, probably we just update course and this error despair
+            Dont worry, probably we just update course and this error despair
             soon
           </p>
           <p className="text-xl font-light">

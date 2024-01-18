@@ -74,7 +74,7 @@ function CreatePage() {
       <div className="border p-8 rounded-xl shadow-md">
         <h1 className="text-2xl">Name your course</h1>
         <p className="text-muted-foreground">
-          What would you like to name your course? Don't worry, you can change
+          What would you like to name your course? Dont worry, you can change
           this name later.
         </p>
         <Form {...form}>

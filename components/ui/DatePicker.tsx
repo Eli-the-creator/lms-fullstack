@@ -14,11 +14,17 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 
+interface DataTimePicker {
+  className?: string;
+  onSelect: React.Dispatch<DateRange | undefined>;
+  days: DateRange | undefined;
+}
+
 export function DatePicker({
   className,
   onSelect,
   days: date,
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: DataTimePicker) {
   return (
     <div className={cn('grid gap-2', className)}>
       <Popover>

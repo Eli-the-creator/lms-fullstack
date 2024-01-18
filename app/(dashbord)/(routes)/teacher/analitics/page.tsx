@@ -33,6 +33,7 @@ async function AnalyticsPage() {
   const { data, totalRevenue, totalSale, dataBestSeller, purchasedCourses } =
     await getAnalytics(userId);
 
+  // @ts-ignore
   const courseLastSale = purchasedCourses.map((item) => item.course);
 
   return (

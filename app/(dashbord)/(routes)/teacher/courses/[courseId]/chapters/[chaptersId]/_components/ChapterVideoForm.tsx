@@ -108,14 +108,14 @@ export const ChapterVideo = ({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-            Upload this chapter's video
+            Upload this chapters video
           </div>
         </div>
       )}
       {initialData.videoUrl && !isEditing && (
         <div className="text-xs text-muted-foreground mt-2">
           <p>
-            Video can take few minutes to process. Refresh page if video dos't
+            Video can take few minutes to process. Refresh page if video dost
             appear
           </p>
         </div>

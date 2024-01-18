@@ -45,7 +45,7 @@ export const columnsSales: ColumnDef<Course>[] = [
     cell: ({ row }) => {
       const createdAt = row.getValue('createdAt');
 
-      return <div>{formatDate(createdAt)}</div>;
+      return <div>{formatDate(createdAt as string)}</div>;
     },
   },
   {
